@@ -53,15 +53,11 @@ class TestFactory:
         return self.test_case_classes[type_case](data_case, expected_result_test)
 
 class PositiveTestCase(TestCase):
+    def __init__(self, data_case, expected_result_test):
+        super().__init__(data_case, expected_result_test)
     pass
 class NegativeTestCase(TestCase):
+    def __init__(self, data_case, expected_result_test):
+        super().__init__(data_case, expected_result_test)
     pass
 
-
-# # Создаем экземпляр фабрики
-# factory = TestFactory()
-#
-# # Регистрируем классы тестовых случаев
-# factory.register_test_case("positive", PositiveTestCase)
-# factory.register_test_case("negative", NegativeTestCase)
-# print(factory.__dict__)

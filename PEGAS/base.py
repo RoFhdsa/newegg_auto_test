@@ -47,7 +47,30 @@ class Base:
                 f"Элемент с локатором '{locator}' по средствам '{by}' не был найден за {timeout} секунд")
         except NoSuchElementException:
             raise NoSuchElementException(f"Элемент с локатором '{locator}' по средствам '{by}' не был определен")
+    def wait_for_elements(self, by: By, locator: str, timeout=10):
+        """
+        Ожидает появления элемента на странице.
 
+        Args:
+            by (By): Метод поиска элемента (например, By.ID, By.CLASS_NAME).
+            locator (str): Локатор элемента.
+            timeout (int, optional): Максимальное время ожидания в секундах (по умолчанию 10).
+
+        Returns:
+            WebElement: Элемент, если найден.
+
+        Raises:
+            TimeoutException: Если элемент не был найден за указанное время.
+            NoSuchElementException: Если элемент не был найден.
+        """
+        try:
+            element = WebDriverWait(self.driver, timeout).until(EC.visibility_of_all_elements_located((by, locator)))
+            return element
+        except TimeoutException:
+            raise TimeoutException(
+                f"Элемент с локатором '{locator}' по средствам '{by}' не был найден за {timeout} секунд")
+        except NoSuchElementException:
+            raise NoSuchElementException(f"Элемент с локатором '{locator}' по средствам '{by}' не был определен")
 
     def click(self, by: By, locator: str, timeout=10):
         """
