@@ -37,6 +37,24 @@ class Mediator(Base):
         except TimeoutException:
             return False
 
+    def check_elements(self, by: By, locator: str, timeout=10):
+        """
+        Проверяет наличие элемента на странице.
+
+        Args:
+            by (By): Метод поиска элемента (например, By.ID, By.CLASS_NAME).
+            locator (str): Локатор элемента.
+            timeout (int, optional): Максимальное время ожидания в секундах (по умолчанию 10).
+
+        Returns:
+            bool: True, если элемент найден, False в противном случае.
+        """
+        try:
+            self.wait_for_elements(by, locator, timeout)
+            return True
+        except TimeoutException:
+            return False
+
     def select_box(self, by: By, locator: str, timeout=10):
         """
         Выбирает элемент.
